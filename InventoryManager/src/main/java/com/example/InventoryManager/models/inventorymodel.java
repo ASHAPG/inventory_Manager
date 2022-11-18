@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import java.util.Date;
 
 
-@Entity(name = "inventory")
+@Entity(name = "inventorytable")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class inventorymodel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer inventoryid ;
     private String inventoryname;
     private String inventorytype;
