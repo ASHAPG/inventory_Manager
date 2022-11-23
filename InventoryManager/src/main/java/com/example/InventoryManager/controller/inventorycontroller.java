@@ -1,45 +1,49 @@
 package com.example.InventoryManager.controller;
- import com.example.InventoryManager.models.inventorymodel;
- import com.example.InventoryManager.repository.Inventoryrepo;
- import org.springframework.beans.BeanUtils;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.web.bind.annotation.*;
- import java.util.List;
+
+
+import com.example.InventoryManager.Service.inventoryServiceImpl;
+import com.example.InventoryManager.models.inventorymodel;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/v1/inventory_manager")
 public class inventorycontroller {
+
     @Autowired
-    private Inventoryrepo inventoryrepo;
+    private inventoryServiceImpl inventoryServiceimpl;
 
     @GetMapping
     public List<inventorymodel> list() {
-        return inventoryrepo.findAll();
+        return inventoryServiceimpl.get();
     }
 
     @GetMapping
     @RequestMapping("{id}")
-    public inventorymodel get(@PathVariable Integer id) {
-        return inventoryrepo.getOne(id);
+    public inventorymodel getbyId(@PathVariable Integer id) {
+        return inventoryServiceimpl.getbyId(id);
     }
 
     @PostMapping
-    public inventorymodel create(@RequestBody final inventorymodel session
-    ){
-        return inventoryrepo.saveAndFlush(session);
+    public inventorymodel create(@RequestBody final inventorymodel inventorymodel){
+        return inventoryServiceimpl.create(inventorymodel);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
-        inventoryrepo.deleteById(id);
+        inventoryServiceimpl.delete(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public inventorymodel update(@PathVariable Integer id, @RequestBody inventorymodel inventorymodel) {
-        inventorymodel existingSession = inventoryrepo.getOne(id);
-        BeanUtils.copyProperties(inventorymodel, existingSession, "session_id");
-        return inventoryrepo.saveAndFlush(existingSession);
+        inventorymodel m = inventoryServiceimpl.getbyId(id);
+        BeanUtils.copyProperties(inventorymodel,m,"inventoryid");
+
+        return inventoryServiceimpl.update(id,m);
     }
 
 }
-
