@@ -1,11 +1,12 @@
 package com.example.InventoryManager.models;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -19,13 +20,18 @@ public class inventorymodel {
     private String inventoryname;
     private String inventorytype;
     private Integer mfcyear;
-    private Date dbupdatedate;
+    private Date dbupdate;
+
 
     public inventorymodel() {
     }
 
+    public inventorymodel(int inventoryid, String inventoryname, String inventorytype, int mfcyear, LocalDate dbupdate) {
+
+    }
+
     public Integer getInventoryid() {
-        return inventoryid;
+        return this.inventoryid;
     }
 
     public void setInventoryid(Integer inventoryid) {
@@ -33,7 +39,7 @@ public class inventorymodel {
     }
 
     public String getInventoryname() {
-        return inventoryname;
+        return this.inventoryname;
     }
 
     public void setInventoryname(String inventoryname) {
@@ -57,11 +63,12 @@ public class inventorymodel {
     }
 
     public Date getDbupdate() {
-        return dbupdatedate;
+        return dbupdate;
     }
 
     public void setDbupdate(Date dbupdate) {
-        this.dbupdatedate = dbupdate;
+        this.dbupdate = dbupdate;
     }
 }
+
 
